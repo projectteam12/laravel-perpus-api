@@ -1,0 +1,4 @@
+1. composer require laravel/sanctum
+2. php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+3. php artisan migrate
+4. php artisan make:controller API/AuthController

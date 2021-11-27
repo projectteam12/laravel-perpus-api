@@ -9,7 +9,16 @@ class BookController extends Controller
 {
     //
     public function index(Request $request){
-    	return Book::all();
+		
+		$buku = Book::all();
+		
+		$data['status'] = 200;
+		$data['message'] = "success";
+		$data['data'] = [
+			'data_buku' => $buku
+		];
+		
+    	return response($data, $data['status']);
     }
 
     /**

@@ -47,9 +47,16 @@ class AuthController extends Controller
         $user = User::where('email', $request['email'])->firstOrFail();
 
         $token = $user->createToken('auth_token')->plainTextToken;
+		$user->token = $token;
 
-        return response()
-            ->json(['message' => 'Hi '.$user->name.', welcome to home','access_token' => $token, 'token_type' => 'Bearer', ]);
+		$data['status'] = 200;
+		$data['message'] = "success login";
+		$data['data'] = [
+			'user' => $user
+		];
+		
+    	return response($data, $data['status']);
+		
     }
 
     // method for user logout and delete token

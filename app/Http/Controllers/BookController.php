@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -66,6 +69,15 @@ class BookController extends Controller
     public function update($id)
     {
         //
+        $book = Book::where('id', $id)->first();
+
+        $stok = $book->stok - 1;
+
+
+        Book::where('id', $id)
+          ->update(['stok' => $stok]);
+
+        return $book = Book::where('id', $id)->first();
     }
 
     /**
@@ -77,6 +89,33 @@ class BookController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function saveAllTransaction(Request $request){
+
+        
+        // for ($i = 0; $i < count($request->books); $i++){
+        //     $transaction = new Transaction;
+
+        //     $transaction->namaBuku = $request->namaBuku;
+        //     $transaction->tahunTerbit = $request->tahunTerbit;
+        //     $transaction->penulis = $request->penulis;
+        //     $transaction->deskripsi = $request->deskripsi;
+        //     $transaction->kategori = $request->kategori;
+        //     $transaction->stok = $request->stok;
+        //     $transaction->urlBuku = $request->urlBuku;
+
+        //     $transaction->save();
+        // }
+
+        // Log::info('Log message', json_encode($request->books));
+
+        $data['status'] = 201;
+        $data['message'] = count($request->books)+"";
+        $data['data'] = null;
+        
+        return response($data, $data['status']);
+
     }
 
 }

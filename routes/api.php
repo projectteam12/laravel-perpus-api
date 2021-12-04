@@ -25,6 +25,8 @@ Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login'])
 
 Route::resource('books', App\Http\Controllers\BookController::class);
 
+Route::post('/save', [App\Http\Controllers\BookController::class, 'saveAllTransaction']);
+
 //Protecting Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function(Request $request) {
